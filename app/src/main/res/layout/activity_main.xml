@@ -6,16 +6,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
-        <TextView
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/cargando"
+            android:visibility="invisible"
+            />
+        <!--TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/texto_cargando"
-            android:text="Iniciado" />
+            android:layout_below="@id/cargando"
+            android:text="Iniciado" /-->
         <ImageView
             android:src="@mipmap/ic_launcher"
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/texto_cargando"/>
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            />
     </RelativeLayout>

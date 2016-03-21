@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -19,16 +20,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-    public static TextView tv;
+    //public static TextView tv;
     public static ImageView iv;
+    public static ProgressBar pb;
     private static String url="http://www.telecinco.es/todoelmundoesbueno/pilar-rubio-estrena-todo-el-mundo-es-bueno_MDSVID20120625_0117_4.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv=(TextView)findViewById(R.id.texto_cargando);
+        //tv=(TextView)findViewById(R.id.texto_cargando);
         iv=(ImageView)findViewById(R.id.imageView);
+        pb=(ProgressBar)findViewById(R.id.cargando);
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
     }
@@ -64,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     static public class MiTarea extends AsyncTask<String,Void,Bitmap> {
         protected void onPreExecute(){
-            tv.setText("Descargando");
-
+            //tv.setText("Descargando");
+            pb.setVisibility(View.VISIBLE);
+            iv.setVisibility(View.INVISIBLE);
             //cargando.setVisibility(View.VISIBLE);
             //descarga.setEnabled(false);
         }
@@ -92,8 +96,10 @@ public class MainActivity extends AppCompatActivity {
             return bm;
         }
         protected void onPostExecute(Bitmap bm){
-            tv.setText("Descargado");
+            //tv.setText("Descargado");
             iv.setImageBitmap(bm);
+            pb.setVisibility(View.INVISIBLE);
+            iv.setVisibility(View.VISIBLE);
             /*
             imageView.setImageBitmap(bm);
             //dialog.dismiss();
