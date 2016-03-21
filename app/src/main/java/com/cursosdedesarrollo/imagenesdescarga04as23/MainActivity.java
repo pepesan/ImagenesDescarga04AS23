@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView iv;
     public static ProgressBar pb;
     private static String url="http://www.telecinco.es/todoelmundoesbueno/pilar-rubio-estrena-todo-el-mundo-es-bueno_MDSVID20120625_0117_4.jpg";
-
+    public static Bitmap bm=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +53,17 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_download) {
             Log.d("Boton Descargar", "Pulsado");
             //downloadAction();
-
-            MiTarea tarea=new MiTarea();
-            tarea.execute(new String[]{url});
+            if(bm==null) {
+                Log.d("Boton Descargar", "No la tengo, a descargo");
+                MiTarea tarea = new MiTarea();
+                tarea.execute(new String[]{url});
+            }else{
+                Log.d("Boton Descargar", "Ya la tengo, no la descargo");
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Ya está descargada! Te das CUEN! JARL!",
+                        Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
         if (id == R.id.action_reset) {
@@ -83,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             */
-            Bitmap bm=getBitmapFromURL(params[0]);
+            bm=getBitmapFromURL(params[0]);
             /*try {
                 downloadBitmap =
                         downloadBitmap(params[0]);
