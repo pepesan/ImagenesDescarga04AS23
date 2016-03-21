@@ -1,5 +1,6 @@
 package com.cursosdedesarrollo.imagenesdescarga04as23;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 tarea.execute(new String[]{url});
             }else{
                 Log.d("Boton Descargar", "Ya la tengo, no la descargo");
+                iv.setImageBitmap(bm);
                 Toast.makeText(
                         getApplicationContext(),
                         "Ya está descargada! Te das CUEN! JARL!",
@@ -74,13 +76,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    static public class MiTarea extends AsyncTask<String,Void,Bitmap> {
+    public class MiTarea extends AsyncTask<String,Integer,Bitmap> {
         protected void onPreExecute(){
             //tv.setText("Descargando");
             pb.setVisibility(View.VISIBLE);
             iv.setVisibility(View.INVISIBLE);
             //cargando.setVisibility(View.VISIBLE);
             //descarga.setEnabled(false);
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Log.d("Values",values[0].toString());
+            Toast.makeText(
+                    MainActivity.this,
+                    "Datos desde la AsyncTask: "+values[0].toString(),
+                    Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -92,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             */
+            publishProgress(new Integer[]{new Integer(0)});
             bm=getBitmapFromURL(params[0]);
             /*try {
                 downloadBitmap =
@@ -102,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return downloadBitmap;
             */
+            publishProgress(new Integer[]{new Integer(100)});
             return bm;
         }
         protected void onPostExecute(Bitmap bm){
