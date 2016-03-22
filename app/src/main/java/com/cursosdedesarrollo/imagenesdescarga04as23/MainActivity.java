@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             //cargando.setVisibility(View.VISIBLE);
             //descarga.setEnabled(false);
         }
-
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
                     "Datos desde la AsyncTask: "+values[0].toString(),
                     Toast.LENGTH_SHORT).show();
         }
-
         @Override
         protected Bitmap doInBackground(String... params) {
             /*
@@ -106,15 +104,7 @@ public class MainActivity extends AppCompatActivity {
             */
             publishProgress(new Integer[]{new Integer(0)});
             bm=getBitmapFromURL(params[0]);
-            /*try {
-                downloadBitmap =
-                        downloadBitmap(params[0]);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return downloadBitmap;
-            */
+
             publishProgress(new Integer[]{new Integer(100)});
             return bm;
         }
